@@ -7,7 +7,7 @@ simple:
 	pdflatex $(name).tex
 	
 clean:
-	rm -f *.aux *.blg *.out *.bbl *.log *.nlo *.nls *.toc *.ilg $(name).pdf
+	rm -f *.aux *.blg *.out *.bbl *.log *.nlo *.nls *.toc *.ilg *-eps-converted-to.pdf $(name).pdf
 	
 $(name).pdf: $(name).tex $(bibfile)
 	pdflatex $(name).tex
