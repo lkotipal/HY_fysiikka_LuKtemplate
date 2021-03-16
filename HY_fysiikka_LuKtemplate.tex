@@ -1,0 +1,330 @@
+% STEP 1: Choose oneside or twoside
+\documentclass[finnish,twoside,openright]{HYgradu}
+
+\usepackage{lmodern} % Font package
+\usepackage{textcomp} % Package for special symbols
+\usepackage[pdftex]{color, graphicx} % For pdf output and jpg/png graphics
+\usepackage[pdftex, plainpages=false]{hyperref} % For hyperlinks and pdf metadata
+\usepackage{fancyhdr} % For nicer page headers
+\usepackage{tikz} % For making vector graphics (hard to learn but powerful)
+%\usepackage{wrapfig} % For nice text-wrapping figures (use at own discretion)
+\usepackage{amsmath, amssymb} % For better math
+%\usepackage[square]{natbib} % For bibliography
+\usepackage[footnotesize,bf]{caption} % For more control over figure captions
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage[titletoc]{appendix}
+
+\onehalfspacing %line spacing
+%\singlespacing
+%\doublespacing
+
+%\fussy 
+\sloppy % sloppy and fussy commands can be used to avoid overlong text lines
+
+% STEP 2:
+% Set up all the information for the title page and the abstract form.
+% Replace parameters with your information.
+\title{Opinn\"aytety\"opohja}
+\author{Roope Halonen ja Tomi Vainio}
+\date{\today}
+%\level{Bachelor's thesis}
+\level{Kandidaatintutkielma}
+\subject{P\"a\"aaine/Opintosuunta}
+%\subject{Your Field}
+\faculty{Matemaattis-luonnontieteellinen tiedekunta}
+%\faculty{Faculty of Whatever}
+\programme{Fysikaalisten tieteiden kandidaattiohjelma}
+\address{PL 64 (Gustaf H\"allstr\"omin katu 2a)\\00014 Helsingin yliopisto}
+\prof{professori/dosentti/jne Etunimi Sukunimi}
+\censors{Etunimi Sukunimi}{Etunimi Sukunimi}{}
+\keywords{\LaTeX}
+\depositeplace{}
+\additionalinformation{}
+\classification{}
+
+% if you want to quote someone special. You can comment this line and there will be nothing on the document.
+%\quoting{Bachelor's degrees make pretty good placemats if you get them laminated.}{Jeph Jacques} 
+
+% OPTIONAL STEP: Set up properties and metadata for the pdf file that pdfLaTeX makes.
+% But you don't really need to do this unless you want to.
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar first?
+    unicode=true,           % to show non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={},            % title
+    pdfauthor={},           % author
+    pdfsubject={},          % subject of the document
+    pdfcreator={},          % creator of the document
+    pdfproducer={pdfLaTeX}, % producer of the document
+    pdfkeywords={something} {something else}, % list of keywords for
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=black,        % color of internal links
+    citecolor=black,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+\begin{document}
+% Generate title page.
+\maketitle
+
+% STEP 3:
+% Write your abstract (of course you really do this last).
+% You can make several abstract pages (if you want it in different languages),
+% but you should also then redefine some of the above parameters in the proper
+% language as well, in between the abstract definitions.
+
+\begin{abstract}
+Kirjoita tiivistelm\"a\"an lyhyt, enint\"a\"an 250 sanan yhteenveto ty\"ost\"asi: mit\"a olet tutkinut, millaisia menetelmi\"a olet k\"aytt\"anyt, millaisia tuloksia sait ja millaisia johtop\"a\"at\"oksi\"a niiden perusteella voi tehd\"a.
+\end{abstract}
+
+% Place ToC
+\mytableofcontents
+
+\mynomenclature
+
+% -----------------------------------------------------------------------------------
+% STEP 4: Write the thesis.
+% Your actual text starts here. You shouldn't mess with the code above the line except
+% to change the parameters. Removing the abstract and ToC commands will mess up stuff.
+\chapter{Johdanto}
+
+Fysiikan laitoksen opinn\"aytety\"opohja k\"aytt\"a\"a omaa dokumenttiluokkaansa \texttt{HYgradu.cls}, joka m\"a\"aritt\"a\"a dokumentin tyylin ja luo automaattisesti kansi- ja tiivistelm\"asivun annettujen parametrien mukaan. Opiskelijalla on mahdollisuus muuttaa dokumenttiluokan asetuksia halutessaan, mutta on suositeltavaa, ett\"a yleist\"a ulkoasua noudatettaisiin etenkin kansilehden ja tiivistelm\"an kohdalla.
+
+\TeX-tiedoston alussa on lista kohtia, joihin tulee t\"aytt\"a\"a tietoja esimerkiksi nimi, ty\"on otsikko jne\footnote{Ty\"on sivum\"a\"ar\"a lasketaan suoraan dokumentista siten ett\"a laskenta alkaa ensimm\"aisest\"a luvusta.}. \LaTeX-ohjelmisto luo dokumentin n\"aiden tietojen perusteella automaattisesti.
+
+\section{Dokumentin k\"a\"ant\"aminen}
+\label{sec:compile}
+
+Opinn\"aytety\"o tulee k\"a\"ant\"a\"a pdf-tiedostoksi \emph{makefile}a k\"aytt\"am\"all\"a, koska dokumenttiin generoidaan automaattisesti l\"ahdeluettelo ja mahdollisesti symboliluettelo\footnote{N\"aiden luetteloiden luominen vaatii dokumentin k\"a\"ant\"amist\"a lis\"aksi \textsc{B\kern-0.1emi\kern-0.017emb}\kern-0.15em\TeX- ja makeindex-ty\"okaluilla.}.
+
+Tiedostossa \texttt{makefile} m\"a\"aritell\"a\"an \TeX-tiedoston ja l\"ahdeluettelotiedoston nimet:
+\begin{verbatim}
+name=HYluk_template
+bibfile=bibliography.bib
+...
+\end{verbatim}
+Ty\"on voi k\"a\"ant\"a\"a ajamalla komento \texttt{make} komentorivilt\"a, jolloin ty\"o k\"a\"annet\"a\"an useita kertoja siten ett\"a dokumentin kaikki luettelot ovat p\"aivittyneet.
+
+Usein pdf-tiedostoa halutaan p\"aivitt\"a\"a vain pienten muutosten j\"alkeen, jos uusia viittauksia tai symboleita ei ole luotu. Etenkin hyvin pitk\"an ja paljon kuvia sis\"alt\"av\"an \TeX-tiedoston k\"a\"ant\"aminen \texttt{make}-komennolla saattaa vied\"a huomattavasti aikaa.
+T\"all\"oin voi k\"aytt\"a\"a komentoa \texttt{make simple}, joka k\"a\"ant\"a\"a dokumentin vain yhden kerran kolmen sijaan. 
+
+Jos dokumentin kielt\"a tai viittaustyyli\"a muutetaan tulee hakemistosta poistaa aputiedostot (\texttt{.aux}, \texttt{.blg} jne.). Poistamisen voi suorittaa automaattisesti ajamalla komento \texttt{make clean}.
+
+\chapter{Ulkoasu}
+
+\section{Kieli}
+
+Dokumentin kieleksi voi valita suomen (\texttt{finnish}), ruotsin (\texttt{swedish}) ja englannin (\texttt{english}). Dokumentin oletusotsikot (\emph{Kirjallisuutta}, \emph{Liite}, \emph{Symboliluettelo}...) vaihtuvat automaattisesti vastaaman valittua kielt\"a\footnote{Muista putsata aputiedostot (luku \ref{sec:compile}).}. 
+
+\section{Merkist\"okoodaus}
+ 
+Riippuen k\"aytetyst\"a tietokonej\"arjestelm\"ast\"a ja valitusta kielest\"a, on t\"arke\"a\"a ett\"a dokumenttiin kirjoitetut merkit ja j\"arjestelm\"an merkist\"okoodaus vastaavat toisiaan. Vaikka \"a\"akk\"oset\footnote{T\"ass\"a esimerkki tiedostossa \"a:t ja \"o:t ovat kirjoitettu erikoismerkkein\"a k\"aytt\"aen komentoja \texttt{\textbackslash"a} ja \texttt{\textbackslash"o}.} n\"aytt\"av\"at tekstieditorissa oikeilta, tietokoneen k\"a\"ant\"aess\"a \TeX-tiedostoa se saattaa tulkita merkit v\"a\"arin. Jotta k\"a\"ant\"aminen olisi mahdollista on \TeX-tiedostossa k\"aytettyjen merkkien vastattava valittua merkist\"okoodausta. 
+
+Kansainv\"aliseksi merkist\"okoodausstandardiksi on valikoitunut ns. Latin-9 (ISO 8859-15), joka on my\"os t\"am\"an opinn\"aytepohjan oletus. Monet tietokonej\"arjestelm\"at k\"aytt\"av\"at kuitenkin oletuksena UTF-8 -koodausta, joka saattaa aiheuttaa ongelmia dokumenttia k\"a\"ant\"aess\"a. T\"am\"an ongelman voi korjata asettamalla UTF-8 -koodauksen oletukseksi lis\"a\"am\"all\"a \texttt{utf}-komennon dokumenttiluokan ehdoksi seuraavasti:
+\begin{verbatim}
+\documentclass[finnish,twoside,openright,utf]{HYgradu}
+\end{verbatim}
+Merkist\"okoodauksen voi tarvittaessa vaihtaa my\"os tietokoneen tai k\"aytetyn tekstieditorin asetuksista.
+ 
+\section{Kaksipuolinen vai ei?}
+
+Painetun opinn\"aytety\"on tulisi olla kaksipuolinen, jolloin dokumentin asetukset m\"a\"aritet\"a\"an seuraavasti:
+\begin{verbatim}
+\documentclass[finnish,twoside,openright]{HYgradu}
+\end{verbatim}
+Hyv\"a k\"ayt\"ant\"o kirjojen teossa on aloittaa jokainen luku parittomalta sivulta eli oikealta vaikka edellinen luku olisi loppunut my\"os parittomalle sivulle (v\"aliin j\"a\"av\"a sivu on t\"aysin blanko). T\"am\"a tapahtuu automaattisesti k\"aytt\"am\"all\"a optiota \texttt{twoside}. Paperille tulostetuissa sel\"ast\"a\"an nidottavissa  tutkielmissa ns. niskanpuolinen marginaali on 0.5 cm leve\"ampi, koska kirjansidonta (etenkin niiteill\"a) sy\"o hieman marginaalia. 
+Ty\"on voi my\"os latoa yksipuolisesti k\"aytt\"am\"all\"a optiota \texttt{oneside}. T\"all\"oin my\"os mahdolliset tyhj\"at sivut poistuvat dokumentista ja sit\"a on helpompi lukea n\"aytt\"op\"a\"atteelt\"a. Vain elektronisena versiona luettavissa tutkielmissa molemmat marginaalit ovat yht\"a leveit\"a.
+
+\section{Kirjasinkoko ja riviv\"ali}
+
+Dokumentin oletuskirjasinkoko on \texttt{12pt}, mutta asetuksiin voi vaihtaa kirjasinkokoon \texttt{10pt} tai \texttt{11pt}.
+
+Riviv\"alin korkeutta voi muuttaa komennoilla \texttt{\textbackslash onehalfspacing}, \texttt{\textbackslash singlespacing}
+ ja \texttt{\textbackslash doublespacing}.
+
+\chapter{Kaavat ja symbolit}
+
+Ideaalikaasun tilanyht\"al\"o on
+\begin{equation}
+\label{eq:ideal}
+pV=NkT,
+\end{equation}
+miss\"a $p$ on kaasun paine, $V$ kaasun tilavuus, $n$ kaasun ainem\"a\"ar\"a, $T$ l\"amp\"otila ja $k$ on Boltzmannin vakio.
+
+Suureita merkitsev\"at symbolit voi lis\"at\"a suoraan symboliluetteloon k\"aytt\"am\"all\"a komentoa
+\begin{verbatim}
+\nomenclature{<symboli>}{<selitys> \nomunit{<mahdollinen yksikko>}}
+\end{verbatim}
+Esimerkiksi paineen symboli saadaan symboliluetteloon komennolla
+\begin{verbatim}
+\nomenclature{$p$}{Paine \nomunit{Pa}}
+\end{verbatim}
+\nomenclature{$p$}{Paine \nomunit{Pa}}
+\nomenclature{$V$}{Tilavuus \nomunit{m$^3$}}
+\nomenclature{$n$}{Ainem\"a\"ar\"a \nomunit{mol}}
+\nomenclature{$T$}{L\"amp\"otila \nomunit{K}}
+\nomenclature{$k$}{Boltzmannin vakio \nomunit{1.38$\times10^{-23}$ J/K}}
+Tietokone j\"arjest\"a\"a symbolit automaattisesti aakkosj\"arjestykseen, siten ett\"a isot kirjaimet ovat ennen pieni\"a ja kreikkalaiset kirjaimet ennen latinalaisia.
+
+\begin{center}
+\framebox[13.5cm]{
+\begin{minipage}{13cm}
+\textcolor{red}{\bf Huom!} On luettavuuden kannalta t\"arke\"a\"a, ett\"a kaavoissa suureiden symbolit ovat kirjoitettu kursiivilla (\emph{italics}), mutta yksik\"ot ja tunnukset kirjoitetaan pystykirjaimin (roman). Esim. ``Boltzmannin vakio kertoo kaasuvakion $R$ suhteen Avogadron vakioon $N_{\rm A}$...'' eik\"a ``...$N_{\color{red}{A}}$...'', koska alaindeksi A viittaa herra Amedeo Avogadroon eik\"a esimerkiksi pinta-alaan $A$.
+\nomenclature{$N_{\rm A}$}{Avogadron vakio \nomunit{6.02$\times10^{23}$ mol$^{-1}$}}
+\nomenclature{$A$}{Pinta-ala \nomunit{m$^2$}}
+\nomenclature{$R$}{Kaasuvakio  \nomunit{8.31 J/K/mol}}
+\end{minipage}
+}
+\end{center}
+
+\chapter{Kuvat ja taulukot}
+
+\section{Kuvat}
+Kuvien julkaisemiseen kannattaa k\"aytt\"a\"a  jotain PostScript-tiedostomuotoa, esimerkiksi pdf- ja eps-formaatit ovat suositeltavia, koska kyseiset tiedostot sis\"alt\"av\"at tietoja kirjasimista, muotoilusta ja tarkkuudesta.
+
+\begin{figure}[h!] 
+% [h!] k\"askee ohjelman sijoittaa kuva juuri t\"ah\"an kohtaan teksti\"a.
+% Vastaavasti [t] sijoittaa sivun yl\"alaitaan, [b] sijoittaa sivun alalaitaan.
+\centering %sijoittaa kuvan keskelle
+\includegraphics[width=0.3\textwidth]{sinetti.png}
+\caption{Fysiikan laitoksen logo, t\"ass\"a vain mannekiinina kuvan asettelusta.}
+\label{fig:sinetti}
+% Netist\"a l\"oytyy useita paketteja jotka auttavat kuvan tai kuvatekstin sijoittelussa.
+\end{figure}
+
+\section{Taulukot}
+
+Tuloksia esitelt\"aess\"a kannattaa tekstin lis\"aksi k\"aytt\"a\"a hyv\"aksi kuvia ja usein my\"os taulukoita. Kuvateksti tulee kuvan alapuolelle, taulukkoteksti taas taulukon  yl\"apuolelle.
+
+Kuvien ja taulukoiden tekstit ovat astetta pienemm\"all\"a fontilla ja nimi\"o on lihavoitu.
+
+\begin{table*}
+\centering
+\caption{T\"arkeimm\"at tulokset}
+\label{tab:symbols}
+\begin{tabular}{l||l c r} % Pystyviivoja voi laittaa niin monta kuin haluaa, eiv\"atk\"a ne ole pakollisia taulukon toiminnalle. 
+% l-merkint\"a (left) sijoittaa pylv\"aik\"on solujen arvot vasemalle
+% c-merkint\"a (center) sijoittaa pylv\"aik\"on solujen arvot keskelle
+% r-merkint\"a (right) sijoittaa pylv\"aik\"on solujen arvot oikealle
+Koe & 1 & 2 & 3 \\ 
+\hline \hline % \hline luo vaakasuunnassa viivan rivien v\"aliin. Useampi \hline luo useita viivoja kyseisien rivien v\"aliin.\"a
+$A$ & 2.5 & 4.7 & -11 \\
+$B$ & 8.0 & -3.7 & 12.6 \\
+$A+B$ & 10.5 & 1.0 & 1.6 \\
+\hline
+%
+\end{tabular}
+\end{table*}
+
+\chapter{Viittaukset}
+
+Dokumentin viittaustyylein\"a ovat ``numeroviitteet'' \texttt{unsrt}, jolloin viitteet tulevat viitelistaan viittausj\"arjestyksess\"a,  ja  ``tekij\"an nimi nimi ja vuosi'' -tyyli \texttt{apalike}, jolloin viitteet tulevat viitelistaan ensimm\"aisen tekij\"an sukunimen mukaisessa aakkosj\"arjestyksess\"a. Kysy ohjaajaltasi kumpaa viitaustyyli\"a h\"an suosittelee k\"aytett\"av\"aksi.
+
+Viittauksiin k\"aytet\"a\"an erillist\"a .bib-tiedostoa. T\"ass\"a dokumentissa se on \texttt{bibliography.bib} ja n\"aytt\"a\"a t\"alt\"a:
+\begin{verbatim}
+@article{einstein,
+    author =       "Albert Einstein",
+    title =        "{Zur Elektrodynamik bewegter K{\"o}rper}. ({German})
+        [{On} the electrodynamics of moving bodies]",
+    journal =      "Annalen der Physik",
+    volume =       "322",
+    number =       "10",
+    pages =        "891--921",
+    year =         "1905",
+    DOI =          "http://dx.doi.org/10.1002/andp.19053221004"
+}
+ 
+@book{latexcompanion,
+    author    = "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+    title     = "The \LaTeX\ Companion",
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts"
+}
+ 
+@misc{knuthwebsite,
+    author    = "Donald Knuth",
+    title     = "Knuth: Computers and Typesetting",
+    url       = "http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html"
+}
+\end{verbatim}
+
+Viittaus tehd\"a\"an komennolla \texttt{\textbackslash cite\{einstein\}}. Esim. 
+\cite{einstein}, \cite{latexcompanion} ja \cite{knuthwebsite}\footnote{Viimeisest\"a viitteest\"a puuttuu vuosiluku, koska sit\"a ei ole m\"a\"aritelty .bib-tiedostossa.}.
+
+\chapter{ Opinn\"aytety\"on rakenne}
+
+Tutustu Kielijelppiin http://www.kielijelppi.fi, joka Helsingin  yliopiston kielikeskuksen yll\"apit\"am\"a verkko-opas hyv\"a\"an akateemiseen kielenk\"aytt\"o\"on suomeksi ja ruotsiksi.  
+
+\section{Johdanto}
+Johdannossa kuvataan ty\"on tausta, sen liittyminen muuhun tutkimukseen, k\"aytetty tarkastelutapa sek\"a ty\"on tavoitteet. Ajatuksena on siis kertoa, mihin tieteellisiin kysymyksiin haetaan vastausta ja mill\"a tavoin.
+
+Johdantoon voidaan sis\"allytt\"a\"a historiikki ja kirjallisuuskatsaus, jos t\"am\"a on tarpeen asian ymm\"art\"amiseksi. Jos kirjallisuuskatsauksesta tulee pitk\"a, voi kuitenkin olla mielek\"ast\"a erottaa se omaksi luvukseen.
+
+\section{Tekstiluvut}
+
+Tutkielman lukujako riippuu sen sis\"all\"ost\"a. Mieti, mik\"a on oman ty\"osi kannalta tarkoituksenmukaista.
+
+Jos ty\"on ymm\"art\"aminen vaatii enemm\"an teoreettista tietoa kuin  opintojen samassa vaiheessa olevalla mutta ty\"on aiheeseen perehtym\"att\"om\"all\"a   fysiikan opiskelijalla voi olettaa olevan, teoreettinen tausta yht\"al\"oineen on syyt\"a kuvata omassa luvussa (esim. ``Teoriaa'').
+Kielenk\"ayt\"oiss\"a tulee pit\"ayty\"a  asiallisessa kirjakieless\"a puhekielisi\"a ilmaisuja v\"altt\"aen.
+
+Jos ty\"oh\"on sis\"altyy omia mittauksia tai data-analyysi\"a, kuvaa ensin k\"aytt\"am\"asi  menetelm\"at  ja/tai aineisto (luku ``Aineisto ja/tai  menetelm\"at'') ja sen j\"alkeen saamasi tulokset (yhdess\"a tai useammassa luvussa).
+
+Puhtaissa kirjallisuust\"oiss\"a luvut ``Aineisto ja menetelm\"at'' ja ``Tulokset'' eiv\"at ole tarpeen. Lukujako valitaan niin, ett\"a  asiat  voidaan esitell\"a mahdollisimman loogisessa j\"arjestyksess\"a.
+
+\section{Teoriaa}
+%
+% T\"ass\"a esimerkit yht\"al\"ost\"a sek\"a l\"ahdeviittauksista.
+%
+Mahdollisessa teorialuvussa voidaan muun muassa esitell\"a ty\"oss\"a k\"aytett\"avi\"a yht\"al\"oit\"a. Yleisen omegayht\"al\"on
+\begin{equation}
+\label{eq:omega}
+L(\omega)=F_V + F_T + F_V + F_Q + F_A
+\end{equation}
+avulla voidaan arvioida ilmakeh\"an pystyliikkeit\"a. Einsteinille  yht\"al\"o (\ref{eq:omega}) ei kuitenkaan ollut tuttu (\cite{einstein}), eiv\"atk\"a my\"osk\"a\"an \cite{latexcompanion} tai \cite{knuthwebsite} k\"asittele sit\"a. 
+\nomenclature{$L(\omega)$}{Omega \nomunit{yksikk\"o}}
+
+\section{Tulokset}
+%
+% T\"ass\"a esimerkit kuvien ja taulukoiden k\"ayt\"ost\"a.
+%
+Tuloksia esitelt\"aess\"a kannattaa tekstin lis\"aksi k\"aytt\"a\"a hyv\"aksi kuvia ja usein my\"os taulukoita. Muista ett\"a kuvateksti tulee kuvan alapuolelle, taulukkoteksti taas taulukon yl\"apuolelle.
+
+\section{Johtop\"a\"at\"okset}
+
+Kertaa lyhyesti ty\"on tavoitteet ja k\"aytt\"am\"asi menetelm\"at. Tee yhteenveto t\"arkeimmist\"a tuloksista. Pohdi my\"os tulosten merkityst\"a ja mahdollisia jatkotutkimustarpeita.
+
+\begin{appendices}
+\myappendixtitle
+
+\chapter{Liitteet}
+Liitteiss\"a voi esitell\"a esimerkiksi ty\"oss\"a k\"aytettyj\"a tietokonekoodeja:
+\begin{verbatim}
+#!/bin/bash          
+text="Hello World!"
+echo $text
+\end{verbatim}
+
+\end{appendices}
+
+% STEP 5:
+% Uncomment the following lines and set your .bib file and desired bibliography style
+% to make a bibliography with BibTeX.
+% Alternatively you can use the thebibliography environment if you want to add all
+% references by hand.
+
+\cleardoublepage %fixes the position of bibliography in bookmarks
+\phantomsection
+
+\addcontentsline{toc}{chapter}{\bibname} % This lines adds the bibliography to the ToC
+%\bibliographystyle{unsrt} % numbering 
+\bibliographystyle{apalike} % name, year
+\bibliography{bibliography.bib}
+
+\end{document}
