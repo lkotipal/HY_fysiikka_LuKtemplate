@@ -283,13 +283,13 @@
 
 \end{large}
 
-\vspace{1.5cm} 
+\vfill
 \begin{LARGE}
 {\bf \@title}
 
 \end{LARGE}
 
-\vspace{2cm}
+\vfill
 \begin{large}
 \@author
 \end{large}
@@ -299,7 +299,7 @@
 \@date
 \end{large}
 
-\vspace{2.0cm}
+\vfill
 
 \begin{large}
 
