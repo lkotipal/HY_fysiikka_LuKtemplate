@@ -20,11 +20,6 @@
 \newif\if@utf
 \newif\if@emptyfirstpagenumber
 
-\RequirePackage{lastpage}
-\RequirePackage{nomencl}
-\RequirePackage{emptypage}
-\RequirePackage{perpage}
-
 \DeclareOption{finnish}{\@finnishtrue}
 \DeclareOption{swedish}{\@swedishtrue}
 \DeclareOption{english}{\@englishtrue}
@@ -62,6 +57,11 @@
 \fi
 \ProcessOptions\relax
 \LoadClass{report}[2000/05/19]
+
+\RequirePackage{lastpage}
+\RequirePackage{nomencl}
+\RequirePackage{emptypage}
+\RequirePackage{perpage}
 \RequirePackage{latexsym}[1998/08/17 v2.2e Standard LaTeX package (lasy symbols)]
 \if@utf
 	\RequirePackage[utf8]{inputenc}
