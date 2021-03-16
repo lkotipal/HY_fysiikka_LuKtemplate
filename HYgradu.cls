@@ -221,12 +221,10 @@
 \renewcommand{\nomentryend}{\hspace*{\fill}#1}}
 
 \newcommand{\mynomenclature}{%
-\ifnum0\pdffilesize{\jobname.nls}>0
-	\printnomenclature
-	\addcontentsline{toc}{chapter}{\nomname}
-	\markboth{\nomname}{}
-	\cleardoublepage
-\fi
+\printnomenclature
+\addcontentsline{toc}{chapter}{\nomname}
+\markboth{\nomname}{}
+\cleardoublepage
 \pagenumbering{arabic}
 }
 
