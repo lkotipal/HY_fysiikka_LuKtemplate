@@ -63,6 +63,7 @@
 \RequirePackage{emptypage}
 \RequirePackage{perpage}
 \RequirePackage{latexsym}[1998/08/17 v2.2e Standard LaTeX package (lasy symbols)]
+\RequirePackage{siunitx}
 \if@utf
 	\RequirePackage[utf8]{inputenc}
 \else
@@ -71,14 +72,39 @@
 \RequirePackage[T1]{fontenc}[2000/08/30 v1.91 Standard LaTeX package]
 \if@finnish
   \RequirePackage[finnish]{babel}[2001/03/01 v3.7h The Babel package]
+  \sisetup{
+    output-decimal-marker={,},
+    exponent-product=\cdot,
+    output-product=\cdot,
+    group-separator={\,},
+    list-pair-separator=\text{ ja },
+    list-final-separator=\text{ ja },
+  }
 \else
   \if@english
     \RequirePackage[english]{babel}[2001/03/01 v3.7h The Babel package]
+    \sisetup{locale = UK}
   \else
     \if@swedish
       \RequirePackage[swedish]{babel}[2001/03/01 v3.7h The Babel package]
+      \sisetup{
+        output-decimal-marker={,},
+        exponent-product=\cdot,
+        output-product=\cdot,
+        group-separator={\,},
+        list-pair-separator=\text{ och },
+        list-final-separator=\text{ och },
+      }
     \else
       \RequirePackage[finnish]{babel}[2001/03/01 v3.7h The Babel package]
+      \sisetup{
+        output-decimal-marker={,},
+        exponent-product=\cdot,
+        output-product=\cdot,
+        group-separator={\,},
+        list-pair-separator=\text{, },
+        list-final-separator=\text{, },
+      }
     \fi
   \fi
 \fi
@@ -221,12 +247,10 @@
 \renewcommand{\nomentryend}{\hspace*{\fill}#1}}
 
 \newcommand{\mynomenclature}{%
-\ifnum0\pdffilesize{\jobname.nls}>0
-	\printnomenclature
-	\addcontentsline{toc}{chapter}{\nomname}
-	\markboth{\nomname}{}
-	\cleardoublepage
-\fi
+\printnomenclature
+\addcontentsline{toc}{chapter}{\nomname}
+\markboth{\nomname}{}
+\cleardoublepage
 \pagenumbering{arabic}
 }
 
@@ -259,13 +283,13 @@
 
 \end{large}
 
-\vspace{1.5cm} 
+\vfill
 \begin{LARGE}
 {\bf \@title}
 
 \end{LARGE}
 
-\vspace{2cm}
+\vfill
 \begin{large}
 \@author
 \end{large}
@@ -275,7 +299,7 @@
 \@date
 \end{large}
 
-\vspace{2.0cm}
+\vfill
 
 \begin{large}
 
